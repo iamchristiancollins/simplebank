@@ -7,8 +7,9 @@ import (
 )
 
 func TestCreateAccount (t *testing.T) {
+	// randomly generate this
 	arg := CreateAccountParams{
-		Owner:    "tom",
+		Owner:    "tom", 
 		Balance:  "100",
 		Currency: "USD",
 	}
