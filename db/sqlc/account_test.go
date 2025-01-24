@@ -12,7 +12,7 @@ import (
 func createRandomAccount(t *testing.T) Account {
 	// randomly generate this
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(), 
+		Owner:    util.RandomOwner(),
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -32,11 +32,11 @@ func createRandomAccount(t *testing.T) Account {
 	return account
 }
 
-func TestCreateAccount (t *testing.T) {
+func TestCreateAccount(t *testing.T) {
 	createRandomAccount(t)
 }
 
-func TestGetAccount (t *testing.T) {
+func TestGetAccount(t *testing.T) {
 	// create account so we don't need to depend on other tests
 	account1 := createRandomAccount(t)
 	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
@@ -52,6 +52,35 @@ func TestGetAccount (t *testing.T) {
 	require.WithinDuration(t, account1.CreatedAt, account2.CreatedAt, time.Second*3)
 }
 
-func TestUpdateAccount (t *testing.T) {
-	
+func TestUpdateAccount(t *testing.T) {
+	account1 := createRandomAccount(t)
+
+	arg := UpdateAccountParams{
+		ID:      account1.ID,
+		Balance: util.RandomMoney(),
+	}
+
+	account2, err := testQueries.UpdateAccount(context.Background(), arg)
+
+	require.NoError(t, err)
+	require.NotEmpty(t, account2)
+
+	require.Equal(t, account1.ID, account2.ID)
+	require.Equal(t, account1.Owner, account2.Owner)
+	require.Equal(t, arg.Balance, account2.Balance)
+	require.Equal(t, account1.Currency, account2.Currency)
+	require.WithinDuration(t, account1.CreatedAt, account2.CreatedAt, time.Second*3)
+}
+
+func TestDeleteAccount(t *testing.T) {
+	account1 := createRandomAccount(t)
+	err := testQueries.DeleteAccount(context.Background(), account1.ID)
+
+	require.NoError(t, err)
+
+	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
+
+	require.Error(t, err)
+	require.EqualError(t, err, "sql: no rows in result set")
+	require.Empty(t, account2)
 }
