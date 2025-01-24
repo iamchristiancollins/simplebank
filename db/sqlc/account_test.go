@@ -104,13 +104,3 @@ func TestListAccounts(t *testing.T) {
 		require.NotEmpty(t, account)
 	}
 }
-
-// TODO: create tests for entry.sql.go and transfer.sql.go functions
-
-// entry.sql.go
-
-
-// transfer.sql.go
-
-
-
