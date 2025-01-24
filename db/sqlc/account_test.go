@@ -85,13 +85,13 @@ func TestDeleteAccount(t *testing.T) {
 	require.Empty(t, account2)
 }
 
-func TestListAccounts (t *testing.T) {
-	for i:= 0; i < 10; i++ {
+func TestListAccounts(t *testing.T) {
+	for i := 0; i < 10; i++ {
 		createRandomAccount(t)
 	}
 
-	arg := ListAccountsParams {
-		Limit: 5,
+	arg := ListAccountsParams{
+		Limit:  5,
 		Offset: 5,
 	}
 
@@ -104,3 +104,13 @@ func TestListAccounts (t *testing.T) {
 		require.NotEmpty(t, account)
 	}
 }
+
+// TODO: create tests for entry.sql.go and transfer.sql.go functions
+
+// entry.sql.go
+
+
+// transfer.sql.go
+
+
+
