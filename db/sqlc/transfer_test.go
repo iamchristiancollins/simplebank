@@ -55,5 +55,21 @@ func TestGetTransfer(t *testing.T) {
 }
 
 func TestListTransfers(t *testing.T) {
-	// TODO
+	account1 := createRandomAccount(t)
+	account2 := createRandomAccount(t)
+
+	for i := 0; i < 10; i++ {
+		createRandomTransfer(t, account1, account2)
+	}
+
+	arg := ListTransfersParams {
+		Limit: 5,
+		Offset: 5,
+	}
+
+	transfers, err := testQueries.ListTransfers(context.Background(), arg)
+
+	require.NoError(t, err)
+	require.NotEmpty(t, transfers)
+	
 }
