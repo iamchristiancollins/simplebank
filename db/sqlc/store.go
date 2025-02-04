@@ -1,5 +1,7 @@
 package db
 
+//lint:ignore S1016
+
 import (
 	"context"
 	"database/sql"
@@ -61,7 +63,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 	err := store.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		//nolint:S1016
+		//lint:ignore S1016 struct literal is more readable here
 		result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
 			FromAccountID: arg.FromAccountID,
 			ToAccountID:   arg.ToAccountID,
