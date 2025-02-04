@@ -1,6 +1,5 @@
 package db
 
-//lint:ignore S1016
 
 import (
 	"context"
