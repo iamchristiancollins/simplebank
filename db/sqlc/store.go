@@ -87,7 +87,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 			return err
 		}
 
-		// TODO: update accounts' balance
+		// TODO: update accounts' balances
 
 		return nil
 	})
